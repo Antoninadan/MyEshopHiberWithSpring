@@ -46,7 +46,7 @@ class ItemDAOTest {
         assertNotNull(savedItem);
         assertNotNull(savedItem.getId());
 
-        Item retrievedItem = itemDAO.findOne(savedItem.getId());
+        Item retrievedItem = itemDAO.getById(savedItem.getId());
         assertNotNull(retrievedItem);
         assertEquals("itemCode", retrievedItem.getCode());
 

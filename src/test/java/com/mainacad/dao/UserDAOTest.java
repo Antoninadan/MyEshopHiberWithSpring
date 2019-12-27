@@ -49,13 +49,13 @@ class UserDAOTest {
         assertNotNull(savedUser);
         assertNotNull(savedUser.getId());
 
-        User retrievedUser = userDAO.findOne(savedUser.getId());
+        User retrievedUser = userDAO.getById(savedUser.getId());
         assertNotNull(retrievedUser);
         assertEquals("ignatenko2207", retrievedUser.getLogin());
 
         userDAO.delete(retrievedUser);
 
-        User deletedUser = userDAO.findOne(savedUser.getId());
+        User deletedUser = userDAO.getById(savedUser.getId());
         assertNull(deletedUser);
     }
 }

@@ -48,7 +48,7 @@ public abstract class BaseDAO<T extends BaseEntity> {
         return entity;
     }
 
-    public T findOne(Integer id){
+    public T getById(Integer id){
         Session session = connectionFactory.getSessionFactory().openSession();
         session.getTransaction().begin();
         T entityFromDB = session.find(getPersistentClass(), id);
