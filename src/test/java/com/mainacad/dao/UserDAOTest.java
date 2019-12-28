@@ -3,6 +3,7 @@ package com.mainacad.dao;
 import com.mainacad.config.AppConfig;
 import com.mainacad.factory.ConnectionFactory;
 import com.mainacad.model.User;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +37,10 @@ class UserDAOTest {
         users.add(user);
     }
 
-//    @AfterEach
-//    void tearDown() {
-//        users.forEach(it -> UserDAO.delete(it));
-//    }
+    @AfterEach
+    void tearDown() {
+        users.forEach(it -> userDAO.delete(it));
+    }
 
     @Test
     void saveAndGetAndDelete() {
@@ -58,4 +59,23 @@ class UserDAOTest {
         User deletedUser = userDAO.findOne(savedUser.getId());
         assertNull(deletedUser);
     }
+
+
+    @Test
+    void saveAndGetByLoginAndPasswordAndDelete(){
+        User savedUser = userDAO.save(users.get(0));
+        assertNotNull(savedUser);
+        assertNotNull(savedUser.getId());
+
+        User retrievedUser = userDAO.getByLoginAndPassword("ignatenko2207", "123456");
+        assertNotNull(retrievedUser);
+        assertEquals("ignatenko2207", retrievedUser.getLogin());
+        assertEquals("123456", retrievedUser.getPassword());
+
+        userDAO.delete(retrievedUser);
+
+        User deletedUser = userDAO.findOne(savedUser.getId());
+        assertNull(deletedUser);
+    }
+
 }
