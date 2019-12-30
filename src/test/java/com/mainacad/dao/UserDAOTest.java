@@ -30,11 +30,6 @@ class UserDAOTest {
     @BeforeEach
     void setUp() {
         users = new ArrayList<>();
-
-        User user = new User("ignatenko2207", "123456", "Alex",
-                "Ignatenko", "test@email.com", "0967933438");
-
-        users.add(user);
     }
 
     @AfterEach
@@ -43,39 +38,88 @@ class UserDAOTest {
     }
 
     @Test
-    void saveAndGetAndDelete() {
-
-
-        User savedUser = userDAO.save(users.get(0));
-        assertNotNull(savedUser);
-        assertNotNull(savedUser.getId());
-
-        User retrievedUser = userDAO.getById(savedUser.getId());
-        assertNotNull(retrievedUser);
-        assertEquals("ignatenko2207", retrievedUser.getLogin());
-
-        userDAO.delete(retrievedUser);
-
-        User deletedUser = userDAO.getById(savedUser.getId());
-        assertNull(deletedUser);
+    void save() {
+        User user = new User("testLogin", "testPass", "testName", "testLastName", "testEmail", "123456789");
+        userDAO.save(user);
+        users.add(user);
+        assertNotNull(user.getId());
     }
 
-
     @Test
-    void saveAndGetByLoginAndPasswordAndDelete(){
-        User savedUser = userDAO.save(users.get(0));
+    void update() {
+        User user = new User("testLogin", "testPass", "testName", "testLastName", "testEmail", "123456789");
+        User savedUser = userDAO.save(user);
+        users.add(savedUser);
         assertNotNull(savedUser);
         assertNotNull(savedUser.getId());
+        assertEquals("testPass", savedUser.getPassword());
 
-        User retrievedUser = userDAO.getByLoginAndPassword("ignatenko2207", "123456");
-        assertNotNull(retrievedUser);
-        assertEquals("ignatenko2207", retrievedUser.getLogin());
-        assertEquals("123456", retrievedUser.getPassword());
+        user.setPassword("newPass");
 
-        userDAO.delete(retrievedUser);
+        User updatedUser = userDAO.update(user);
+        assertNotNull(updatedUser);
+        assertEquals("newPass", updatedUser.getPassword());
+    }
 
-        User deletedUser = userDAO.findOne(savedUser.getId());
-        assertNull(deletedUser);
+    @Test
+    void getAndDelete() {
+        User user = new User("testLogin", "testPass", "testName", "testLastName", "testEmail", "123456789");
+        userDAO.save(user);
+
+        assertNotNull(user.getId());
+
+        User targetUser = userDAO.getById(user.getId());
+        assertNotNull(targetUser);
+        userDAO.delete(targetUser);
+        targetUser = userDAO.getById(user.getId());
+        assertNull(targetUser);
+    }
+
+    @Test
+    void getAll() {
+        User user1 = new User("testLogin22", "testPass", "testName", "testLastName", "testEmail", "123456789");
+        User user2 = new User("testLogin23", "testPass", "testName", "testLastName", "testEmail", "123456789");
+        userDAO.save(user1);
+        userDAO.save(user2);
+        users.add(user1);
+        users.add(user2);
+        assertNotNull(user1.getId());
+        assertNotNull(user2.getId());
+
+        List<User> targetUsers = userDAO.getAll();
+        assertTrue(targetUsers.size() >= 2);
+
+        int count = 0;
+        for (User each:targetUsers){
+            if ((user1.getId()).equals(each.getId())) {count++;}
+            if ((user2.getId()).equals(each.getId())) {count++;}
+        }
+        assertEquals(2,count);
+    }
+
+    @Test
+    void getById() {
+        User user = new User("testLogin", "testPass", "testName", "testLastName", "testEmail", "123456789");
+        userDAO.save(user);
+        users.add(user);
+        assertNotNull(user.getId());
+
+        User targetUser = userDAO.getById(user.getId());
+        assertNotNull(targetUser);
+        assertNotNull(targetUser.getId());
+    }
+
+    @Test
+    void getByLoginAndPassword() {
+        User user = new User("testLogin100", "testPass100", "testName", "testLastName", "testEmail", "123456789");
+        userDAO.save(user);
+        users.add(user);
+        assertNotNull(user.getId());
+
+        User targetUser = userDAO.getByLoginAndPassword(user.getLogin(), user.getPassword());
+        assertNotNull(targetUser);
+        assertNotNull(targetUser.getId());
+        assertEquals(targetUser.getLogin(),user.getLogin());
     }
 
 }

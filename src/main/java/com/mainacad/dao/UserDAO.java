@@ -15,12 +15,12 @@ public class UserDAO extends BaseDAO<User> {
     @Autowired
     ConnectionFactory connectionFactory;
 
-    public List<User> findAll() {
+    public List<User> getAll() {
         Session session = connectionFactory.getSessionFactory().openSession();
         session.getTransaction().begin();
 
         String sql = "SELECT * FROM users";
-        List<User> result = session.createNativeQuery(sql).getResultList();
+        List<User> result = session.createNativeQuery(sql).addEntity(User.class).getResultList();
 
         session.close();
         return result;
