@@ -1,6 +1,8 @@
 package com.mainacad.config;
 
+import com.mainacad.dao.CartDAO;
 import com.mainacad.dao.ItemDAO;
+import com.mainacad.dao.OrderDAO;
 import com.mainacad.dao.UserDAO;
 import com.mainacad.factory.ConnectionFactory;
 import com.mainacad.factory.H2Factory;
@@ -36,6 +38,16 @@ public class AppConfig {
     @Bean
     public ItemDAO getItemDAO(){
         return new ItemDAO();
+    }
+
+    @Bean
+    public OrderDAO getOrderDAO(){
+        return new OrderDAO();
+    }
+
+    @Bean
+    public CartDAO getCartDAO(){
+        return new CartDAO();
     }
 
 }

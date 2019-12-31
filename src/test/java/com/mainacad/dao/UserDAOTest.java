@@ -17,7 +17,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringJUnitConfig(AppConfig.class)
-@ActiveProfiles("test")
+@ActiveProfiles("dev")
 class UserDAOTest {
 
     @Autowired

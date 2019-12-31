@@ -12,7 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringJUnitConfig(AppConfig.class)
-@ActiveProfiles({"test"})
+@ActiveProfiles({"dev"})
 class HibernateFactoryTest {
 
     @Autowired
