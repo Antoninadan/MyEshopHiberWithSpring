@@ -169,7 +169,6 @@ class OrderDAOTest {
 
         Order order = new Order(item, cart, 50);
         orderDAO.save(order);
-        orders.add(order);
         assertNotNull(order.getId());
 
         Order targetOrder = orderDAO.getById(order.getId());

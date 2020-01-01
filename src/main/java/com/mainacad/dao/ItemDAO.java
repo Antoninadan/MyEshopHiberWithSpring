@@ -58,11 +58,15 @@ public class ItemDAO extends BaseDAO<Item> {
         Session session = connectionFactory.getSessionFactory().openSession();
         session.getTransaction().begin();
 
-        String sql = "SELECT i.id as itemid, i.name as item_name, i.price as item_price FROM items i "
+        String sql = "SELECT i.id as itemid, "
+                + "i.name as item_name, "
+                + "i.price as item_price "
+                + "FROM items i "
                 + "JOIN orders o ON o.item_id = i.id "
                 + "JOIN carts c ON c.id = o.cart_id "
                 + "WHERE c.user_id = ? "
-                + "AND c.creation_time >=?  AND c.creation_time <=? " + "AND c.status = 2";
+                + "AND c.creation_time >=?  AND c.creation_time <=? "
+                + "AND c.status = 2";
 
         NativeQuery nativeQuery = session.createNativeQuery(sql).addEntity(Item.class);
         nativeQuery.setParameter(1, user.getId());
@@ -74,5 +78,4 @@ public class ItemDAO extends BaseDAO<Item> {
         session.close();
         return result;
     }
-
 }

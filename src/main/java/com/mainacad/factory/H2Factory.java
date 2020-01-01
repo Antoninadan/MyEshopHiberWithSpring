@@ -28,7 +28,7 @@ public class H2Factory implements ConnectionFactory{
                 Properties properties = new Properties();
 
                 properties.setProperty("hibernate.connection.driverClassName", "org.h2.Driver");
-                properties.setProperty("hibernate.connection.url", "jdbc:h2:~/hiber_spring");
+                properties.setProperty("hibernate.connection.url", "jdbc:h2:~/hiber_spring2");
                 properties.setProperty("hibernate.connection.username", "tonya");
                 properties.setProperty("hibernate.connection.password", "estafeta");
                 properties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
