@@ -221,5 +221,18 @@ class ItemDAOTest {
         assertEquals("name_new", targetItem.getName());
     }
 
+    @Test
+    void getAndDeleteTest() {
+        Item item = new Item("name_7", "code_7", 70, 700);
+        itemDAO.save(item);
+        assertNotNull(item.getId());
 
+        Item targetItem = itemDAO.getById(item.getId());
+        assertNotNull(targetItem);
+
+        itemDAO.delete(item);
+
+        Item deletedItem = itemDAO.getById(targetItem.getId());
+        assertNull(deletedItem);
+    }
 }
