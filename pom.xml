@@ -21,7 +21,7 @@
     <hibernate.version>5.4.10.Final</hibernate.version>
     <postgres.version>42.2.9</postgres.version>
     <spring.version>5.2.2.RELEASE</spring.version>
-    <h2.version>1.4.200</h2.version>
+    <h2.version>2.1.210</h2.version>
     <javax.annotation.version>1.3.2</javax.annotation.version>
 
   </properties>
